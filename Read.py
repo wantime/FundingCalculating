@@ -19,6 +19,7 @@ if __name__ == "__main__":
     cash = 100000
     chunk = 0
     exchanges = 0
+    bucks = 5000
     for cur in value:
         # 计算收益情况
         income = chunk * cur - cost
@@ -26,21 +27,21 @@ if __name__ == "__main__":
         incomePercent = 0 if (cost == 0) else income / cost
 
 
-        if incomePercent > 0.4:
+        if incomePercent > 0.3:
             # sell
-            cost -= 2000
-            cash += 2000
-            curChunk = exchange(cur)
+            cost -= bucks
+            cash += bucks
+            curChunk = exchange(cur, curMoney=bucks)
             chunk -= curChunk
-            exchanges += 1
+            times += 1
         elif incomePercent < -0.05 or incomePercent == 0:
             # buy
-            curChunk = exchange(cur)
-            cost += 2000
-            cash -= 2000
+            curChunk = exchange(cur, curMoney=bucks)
+            cost += bucks
+            cash -= bucks
             chunk += curChunk
-            exchanges += 1
-        print('交易次数:' + str(exchanges) + '收益是:' + str(income))
+            times += 1
+        print('交易次数:' + str(times) + '收益是:' + str(income))
 
     cur = value[len(value) - 1]
     total = cash + chunk * cur
