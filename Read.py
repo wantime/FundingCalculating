@@ -3,19 +3,25 @@ import numpy as np
 import accountModule
 import matplotlib.pyplot as plt
 
+from typing import List,Any,Union
+import requests
+import execjs
+
 def exchange(curPrice, curMoney=2000, tax=0):
     curChunk = (curMoney - (tax * curMoney)) / curPrice
     return curChunk
 
 
 if __name__ == "__main__":
-    f = open('id.txt', encoding='utf8')
-    ids = f.readlines()
-    time = 1
-    for id in ids:
-        print(id)
-        print(time)
-        time += 1
+    # 读取文本中的id号
+    # f = open('id.txt', encoding='utf8')
+    # ids = f.readlines()
+    # time = 1
+    # for id in ids:
+    #     print(id)
+    #     print(time)
+    #     time += 1
+    # 模拟智能定投，计算最终获利情况
     # ids = ['001631', '012348', '050026']
     # for id in ids:
     #     df = pd.read_csv(id+'.csv')
@@ -62,4 +68,21 @@ if __name__ == "__main__":
     #     plt.figure()
     #     plt.plot(list)
     #     plt.show()
+    
+    # 获取所有的基金编号
 
+
+    url = 'http://fund.eastmoney.com/js/fundcode_search.js'
+    content = requests.get(url)
+    jsContent = execjs.compile(content.text)
+    rawData = jsContent.eval('r')
+    allInfo: list[Union[list[str], Any]] = [["基金代码","基金简拼","基金名称","基金类型","基金全拼"]]
+    for code in rawData:
+        allInfo.append(code)
+
+    save = pd.Series(allInfo)
+    save.to_csv('fundingID.csv', encoding='utf8')
+    for i in range(len(allInfo)):
+        for j in range(len(allInfo[i])):
+            print(allInfo[i][j], end='\t')
+        print()
