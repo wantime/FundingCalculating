@@ -7,7 +7,7 @@ url = 'http://fund.eastmoney.com/js/fundcode_search.js'
 content = requests.get(url)
 jsContent = execjs.compile(content.text)
 rawData = jsContent.eval('r')
-allInfo: list[Union[list[str], Any]] = [["基金代码", "基金简拼", "基金名称", "基金类型", "基金全拼"]]
+allInfo: list[Union[list[str], Any]] = [["id", "pinyin", "name", "type", "Fullpinyin"]]
 for code in rawData:
     allInfo.append(code)
 
