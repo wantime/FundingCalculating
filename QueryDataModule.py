@@ -3,8 +3,8 @@ import numpy as np
 
 class QueryData():
 
-    def __init__(self, dataPath='FundInfo.csv'):
-        self.data = pd.read_csv(dataPath)
+    def __init__(self, dataPath='FundInfo.csv', converters={'id':str}):
+        self.data = pd.read_csv(dataPath, converters={'id': str})
 
     def QueryByType(self, query):
         query_data = self.data.loc[self.data['type'].str.contains(query)]
@@ -28,7 +28,7 @@ class QueryData():
 
 
 def main():
-    myquery = QueryData('jupyter notebook/fundinfo.csv')
+    myquery = QueryData('data/fundinfo.csv')
     data = myquery.QueryByName('易方达')
     print(data)
 
