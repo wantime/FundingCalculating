@@ -67,16 +67,26 @@ def get_fund(code, start_date, end_date, page=1, per=20):
     fund_df['日增长率'] = fund_df['日增长率'].str.strip('%').astype(float)
     return fund_df
 
-def trim(string):
-    if(string == ''):
-        return ''
-    if(string[0] == ' '):
-        return trim(string[1:])
-    elif(string[-1] == ' '):
-        return trim(string[:-2])
-    else:
-        return string
+
+def triangles(max):
+    row = 0
+    last = [1]
+    while (row < max):
+
+        cur = []
+
+        for i in range(row + 1):
+            if 0 < i < (len(last) - 1):
+                print('i:'+ str(i))
+                print('len(last):'+ str(len(last) - 1))
+                cur.append(last[i - 1] + last[i])
+            else:
+                cur.append(1)
+        yield cur
+        last = cur
+        row += 1
 
 if __name__ == '__main__':
-    if trim('hello  ') != 'hello':
-        print('测试失败!')
+    g = triangles(3)
+    for i in g:
+        print(i)
