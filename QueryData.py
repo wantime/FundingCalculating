@@ -26,20 +26,6 @@ class QueryData():
         query_data = self.data.loc[self.data['Fullpinyin'].str.contains(query)]
         return query_data
 
-    # def Query(self, col, query):
-    #     match col:
-    #         case 1:
-    #             return self.QueryById(query)
-    #         case 2:
-    #             return self.QueryByPY(query)
-    #         case 3:
-    #             return self.QueryByName(query)
-    #         case 4:
-    #             return self.QueryByType(query)
-    #         case 5:
-    #             return self.QueryByFullPY(query)
-    #         case other:
-    #             print('Wrong Input type or value of parameter col, only 1-5.')
 
 def main():
     myquery = QueryData('jupyter notebook/fundinfo.csv')
