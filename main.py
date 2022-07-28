@@ -68,25 +68,4 @@ def get_fund(code, start_date, end_date, page=1, per=20):
     return fund_df
 
 
-def triangles(max):
-    row = 0
-    last = [1]
-    while (row < max):
 
-        cur = []
-
-        for i in range(row + 1):
-            if 0 < i < (len(last) - 1):
-                print('i:'+ str(i))
-                print('len(last):'+ str(len(last) - 1))
-                cur.append(last[i - 1] + last[i])
-            else:
-                cur.append(1)
-        yield cur
-        last = cur
-        row += 1
-
-if __name__ == '__main__':
-    g = triangles(3)
-    for i in g:
-        print(i)
